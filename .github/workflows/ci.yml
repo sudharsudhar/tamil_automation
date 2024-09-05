@@ -1,30 +1,18 @@
-name: SSH to Linux VM
-
+name: Remote update execution
 on:
   push:
     branches:
       - main
-
 jobs:
-  deploy:
+  build:
+    name: Build
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Decode SSH Key
-        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 --decode > ~/.ssh/id_rsa
-
-      - name: Set up SSH agent
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ~/.ssh/id_rsa
-
-      - name: Add SSH key to known_hosts
-        run: |
-          ssh-keyscan -H 62.72.27.131 >> ~/.ssh/known_hosts
-
-      - name: SSH into Linux VM and run command
-        run: |
-          ssh root@62.72.27.131 'command_to_run_on_vm'
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+                    ls
