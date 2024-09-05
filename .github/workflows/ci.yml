@@ -3,7 +3,7 @@ name: SSH to Linux VM
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -13,10 +13,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Decode SSH Key
+        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 --decode > ~/.ssh/id_rsa
+
       - name: Set up SSH agent
         uses: webfactory/ssh-agent@v0.5.4
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ~/.ssh/id_rsa
 
       - name: Add SSH key to known_hosts
         run: |
@@ -24,4 +27,4 @@ jobs:
 
       - name: SSH into Linux VM and run command
         run: |
-          ssh root@62.72.27.131 'ls'
+          ssh root@62.72.27.131 'command_to_run_on_vm'
