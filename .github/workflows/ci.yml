@@ -1,36 +1,27 @@
-name: CI Workflow
+name: SSH to Linux VM
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.5.4
         with:
-          python-version: '3.x'
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # - name: Install Dependencies
-      #   run: |
-      #     python -m pip install --upgrade pip
-      #     pip install -r requirements.txt
+      - name: Add SSH key to known_hosts
+        run: |
+          ssh-keyscan -H 62.72.27.131 >> ~/.ssh/known_hosts
 
-      # Run the app.py script
-      - name: Logging to Linux Maching
+      - name: SSH into Linux VM and run command
         run: |
-          ssh -T root@62.72.27.131
-          yes
-      - name: Entering the pass for tempory
-        run: |
-          v6mcSijHt#Ox8E3nrY=Z
-      - name: Listing inside VM
-        run: |
-          ls
+          ssh root@62.72.27.131 'ls'
