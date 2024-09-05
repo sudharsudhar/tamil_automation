@@ -3,7 +3,7 @@ name: SSH to Linux VM
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
