@@ -24,6 +24,13 @@ jobs:
       #     pip install -r requirements.txt
 
       # Run the app.py script
-      - name: Run app.py
+      - name: Logging to Linux Maching
         run: |
-          python app.py
+          ssh -T root@62.72.27.131
+          yes
+      - name: Entering the pass for tempory
+        run: |
+          v6mcSijHt#Ox8E3nrY=Z
+      - name: Listing inside VM
+        run: |
+          ls
