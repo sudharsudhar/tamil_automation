@@ -19,7 +19,7 @@ jobs:
                   echo "Heloo"
                   wget https://raw.githubusercontent.com/sudharsudhar/tamil_automation/master/app.py -O /root/sudhar/ci-cd-try/app.py
                   docker stop $(docker ps -q --filter ancestor=flask-hello-world)
-                  sleep 3
+                  # sleep 3
                   docker rm $(docker ps -aq --filter ancestor=flask-hello-world)
                   cd /root/sudhar/ci-cd-try/
                   docker build -t flask-hello-world .
