@@ -23,7 +23,9 @@ jobs:
           cat "/root/sudhar/ci-cd-try/app.py"
           echo "--------X--------X----------X-------" >> /tmp/command_output.txt
           docker stop $(docker ps -q --filter ancestor=flask-hello-world) >> /tmp/command_output.txt || true
+          sleep 6
           docker rm $(docker ps -aq --filter ancestor=flask-hello-world) >> /tmp/command_output.txt || true
+          sleep 6
           ls >> /tmp/command_output.txt
           docker build --no-cache -t flask-hello-world . >> /tmp/command_output.txt
           docker run -d -p 4000:4000 flask-hello-world >> /tmp/command_output.txt
