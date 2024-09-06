@@ -14,21 +14,33 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
-        script: |
-                  ls
-                  echo "Heloo"
-                  wget https://raw.githubusercontent.com/sudharsudhar/tamil_automation/master/app.py -O /root/sudhar/ci-cd-try/app.py
-                  echo "--------X--------X----------X-------"
-                  cat /root/sudhar/ci-cd-try/app.py
-                  echo "--------X--------X----------X-------"
-                  docker stop $(docker ps -q --filter ancestor=flask-hello-world) || true
-                  # sleep 3
-                  docker rm $(docker ps -aq --filter ancestor=flask-hello-world) || true
-                  docker rmi flask-hello-world || true
-                  cd /root/sudhar/ci-cd-try/
-                  docker build -t flask-hello-world .
-                  docker run -d -p 4000:4000 flask-hello-world
-                  echo "--------X--------X----------X-------"
+        script: | 
+          ls > /tmp/command_output.txt
+          echo "Heloo" >> /tmp/command_output.txt
+          wget https://raw.githubusercontent.com/sudharsudhar/tamil_automation/master/app.py -O /root/sudhar/ci-cd-try/app.py >> /tmp/command_output.txt
+          echo "--------X--------X----------X-------" >> /tmp/command_output.txt
+          cat "/root/sudhar/ci-cd-try/app.py"
+          echo "--------X--------X----------X-------" >> /tmp/command_output.txt
+          docker stop $(docker ps -q --filter ancestor=flask-hello-world) >> /tmp/command_output.txt || true
+          docker rm $(docker ps -aq --filter ancestor=flask-hello-world) >> /tmp/command_output.txt || true
+          docker build --no-cache -t flask-hello-world . >> /tmp/command_output.txt
+          docker run -d -p 4000:4000 flask-hello-world >> /tmp/command_output.txt
+          docker ps >> /tmp/command_output.txt
+          cat /tmp/command_output.txt
+                  # ls
+                  # echo "Heloo"
+                  # wget https://raw.githubusercontent.com/sudharsudhar/tamil_automation/master/app.py -O /root/sudhar/ci-cd-try/app.py
+                  # echo "--------X--------X----------X-------"
+                  # cat /root/sudhar/ci-cd-try/app.py
+                  # echo "--------X--------X----------X-------"
+                  # docker stop $(docker ps -q --filter ancestor=flask-hello-world) || true
+                  # # sleep 3
+                  # docker rm $(docker ps -aq --filter ancestor=flask-hello-world) || true
+                  # docker rmi flask-hello-world || true
+                  # cd /root/sudhar/ci-cd-try/
+                  # docker build -t flask-hello-world .
+                  # docker run -d -p 4000:4000 flask-hello-world
+                  # echo "--------X--------X----------X-------"
 # jobs:
 #   build:
 #     name: Build
