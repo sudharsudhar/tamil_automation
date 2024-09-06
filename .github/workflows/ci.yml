@@ -26,6 +26,8 @@ jobs:
           docker build --no-cache -t flask-hello-world . >> /tmp/command_output.txt
           docker run -d -p 4000:4000 flask-hello-world >> /tmp/command_output.txt
           docker ps >> /tmp/command_output.txt
+          sleep 10
+          docker ps >> /tmp/command_output.txt
           cat /tmp/command_output.txt
                   # ls
                   # echo "Heloo"
