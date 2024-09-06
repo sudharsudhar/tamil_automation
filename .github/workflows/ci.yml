@@ -17,7 +17,8 @@ jobs:
         script: | 
           ls > /tmp/command_output.txt
           echo "Heloo" >> /tmp/command_output.txt
-          wget https://raw.githubusercontent.com/sudharsudhar/tamil_automation/master/app.py -O /root/sudhar/ci-cd-try/app.py >> /tmp/command_output.txt
+          wget https://raw.githubusercontent.com/sudharsudhar/tamil_automation/main/app.py -O /root/sudhar/ci-cd-try/app.py >> /tmp/command_output.txt
+          sleep 2
           cd /root/sudhar/ci-cd-try/
           echo "--------X--------X----------X-------" >> /tmp/command_output.txt
           cat "/root/sudhar/ci-cd-try/app.py"
