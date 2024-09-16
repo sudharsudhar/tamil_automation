@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Ramayanam --> Jai Sri RAM & Sita & Lava & Kusa --> Hunuman --> Guhan--> valmiki --> Ravanan --> lakshmanan--> Kausalya (MOM) dhasaradar, chathrukanan, bharathanan, kaikayie'
+    return 'Ramayanam --> Jai Sri RAM & Sita '
     
 
 if __name__ == '__main__':
